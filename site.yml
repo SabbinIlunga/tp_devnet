@@ -1,0 +1,10 @@
+---
+- import_playbook: playbook_facts.yml
+- import_playbook: playbook_backup.yml
+- import_playbook: playbook_ntp.yml
+- import_playbook: playbook_sshuser.yml
+- import_playbook: playbook_vlan.yml
+- import_playbook: playbook_conf_int.yml
+- import_playbook: playbook_banner.yml
+- import_playbook: playbook_audit.yml
+- import_playbook: playbook_report.yml

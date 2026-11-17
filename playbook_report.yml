@@ -1,0 +1,9 @@
+---
+- name: Generate HTML Report
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create HTML report file
+      ansible.builtin.template:
+        src: "templates/report.html.j2"
+        dest: "./device_reports/execution_report.html"

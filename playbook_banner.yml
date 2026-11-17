@@ -1,0 +1,10 @@
+---
+- name: Deploy Dynamic MOTD Banner
+  hosts: switches
+  gather_facts: no
+  tasks:
+    - name: Apply banner MOTD from template
+      cisco.ios.ios_banner:
+        banner: motd
+        text: "{{ lookup('template', 'templates/motd.j2') }}"
+        state: present

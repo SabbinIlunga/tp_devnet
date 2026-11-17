@@ -1,0 +1,14 @@
+---
+- name: Configure NTP Servers
+  hosts: switches
+  gather_facts: no
+  vars:
+    ntp_servers:
+      - 192.168.100.10
+      - 192.168.100.11
+  tasks:
+    - name: Apply NTP server configuration
+      cisco.ios.ios_config:
+        lines:
+          - ntp server {{ item }}
+      loop: "{{ ntp_servers }}"

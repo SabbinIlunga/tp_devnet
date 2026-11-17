@@ -1,0 +1,16 @@
+---
+- name: Audit and Fix SNMP Configuration
+  hosts: switches
+  gather_facts: no
+  tasks:
+    - name: Check running-config for SNMP
+      cisco.ios.ios_command:
+        commands:
+          - show running-config | include snmp-server
+      register: snmp_output
+
+    - name: Configure SNMP if missing
+      cisco.ios.ios_config:
+        lines:
+          - snmp-server community public RO
+      when: snmp_output.stdout[0] == ""

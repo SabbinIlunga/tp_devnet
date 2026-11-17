@@ -1,0 +1,17 @@
+---
+- name: Backup Running Configuration
+  hosts: switches
+  gather_facts: no
+  vars:
+    timestamp: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+  tasks:
+    - name: Get running configuration backup
+      cisco.ios.ios_config:
+        backup: yes
+        backup_options:
+          dir_path: "./backups/{{ timestamp }}"
+      register: backup_result
+
+    - name: Display backup path
+      ansible.builtin.debug:
+        msg: "Configuration sauvegardée avec succès dans : {{ backup_result.backup_path }}"

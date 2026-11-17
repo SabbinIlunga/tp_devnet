@@ -1,0 +1,11 @@
+all:
+  children:
+    switches:
+      hosts:
+        catalyst_sandbox:
+          ansible_host: "devnetsandboxiosxec9k.cisco.com"
+          ansible_user: "20ib059"
+          ansible_ssh_pass: "#i1kHTerLe!8_5"
+          ansible_network_os: "cisco.ios.ios"
+          ansible_connection: "ansible.netcommon.network_cli"
+          ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

@@ -1,0 +1,12 @@
+---
+- name: Configure Switch Management Interface
+  hosts: switches
+  gather_facts: no
+  tasks:
+    - name: Configure IP address on interface
+      cisco.ios.ios_config:
+        lines:
+          - no switchport
+          - ip address {{ switch_ip }} {{ switch_mask }}
+          - no shutdown
+        parents: "interface {{ switch_interface }}"

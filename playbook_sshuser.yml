@@ -1,0 +1,17 @@
+---
+- name: Configure Admin User and Secure Access
+  hosts: switches
+  gather_facts: no
+  tasks:
+    - name: Ensure admin user exists
+      cisco.ios.ios_user:
+        name: netadmin
+        configured_password: "$1$xyz$AbCdEfGhIjKlMnOpQrStU1"
+        privilege: 15
+        state: present
+
+    - name: Ensure SSH is enforced on VTY lines
+      cisco.ios.ios_config:
+        lines:
+          - transport input ssh
+        parents: line vty 0 15

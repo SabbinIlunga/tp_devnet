@@ -1,0 +1,22 @@
+---
+- name: Collect Network Facts and Save to File
+  hosts: switches
+  gather_facts: no
+  tasks:
+    - name: Gather device facts
+      cisco.ios.ios_facts:
+        gather_subset: all
+
+    - name: Create local report directory
+      delegate_to: localhost
+      run_once: true
+      ansible.builtin.file:
+        path: "./device_reports"
+        state: directory
+
+    - name: Save OS version and serial number locally
+      delegate_to: localhost
+      ansible.builtin.lineinfile:
+        path: "./device_reports/inventory_summary.txt"
+        create: yes
+        line: "Device: {{ inventory_hostname }} | OS Version: {{ ansible_net_version }} | Serial: {{ ansible_net_serialnum }}"
